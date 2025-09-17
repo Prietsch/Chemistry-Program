@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS-Química: A Molécula do Etino (Acetileno)</title>
+    <!-- Inclui a fonte Inter do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Inclui o framework Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #E8F0FF;
+        }
+        .container-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        #molecule-3d-container {
+            width: 100%;
+            max-width: 1024px;
+            margin: 0 auto;
+            height: 300px;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            background-color: #0D2557;
+        }
+        .text-sub {
+            vertical-align: sub;
+            font-size: 0.8em;
+        }
+    </style>
+    <!-- Inclui a biblioteca Three.js para o modelo 3D -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body class="text-[#0D2557]">
+
+    <!-- Cabeçalho -->
+    <header class="bg-[#0D2557] text-white py-8 px-4 sm:px-6 lg:px-8 shadow-lg">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl sm:text-4xl font-bold">Química Simples: Etino (Acetileno)</h1>
+            <p class="mt-2 text-lg sm:text-xl font-light">Um guia interativo sobre o C₂H₂</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        
+        <!-- Informações Fixas -->
+        <section class="bg-[#93A8C9] rounded-xl p-6 sm:p-8 container-shadow mb-12">
+            <h2 class="text-2xl sm:text-3xl font-semibold text-center text-[#0D2557] mb-6">Sobre o Etino (C₂H₂)</h2>
+            
+            <!-- Div para os cards em uma única grade 2x2 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                
+                <!-- Card de Fórmula Química -->
+                <div class="bg-[#0D2557] text-white rounded-lg p-5 border border-white text-center">
+                    <h3 class="text-xl font-bold text-white">Fórmula Química</h3>
+                    <p class="mt-2 text-4xl font-light">C<sub class="text-sub">2</sub>H<sub class="text-sub">2</sub></p>
+                    <p class="text-base text-gray-200 mt-1">Dois átomos de carbono e dois de hidrogênio.</p>
+                </div>
+
+                <!-- Card de Ligação Química -->
+                <div class="bg-[#0D2557] text-white rounded-lg p-5 border border-white text-center">
+                    <h3 class="text-xl font-bold text-white">Ligação Química</h3>
+                    <p class="mt-2 text-base">Covalente, com uma ligação tripla entre os átomos de carbono.</p>
+                    <p class="text-sm text-gray-200 mt-1">Ocorre pelo compartilhamento de elétrons, formando uma ligação tripla carbono-carbono.</p>
+                </div>
+
+                <!-- Card de Propriedades Físicas -->
+                <div class="bg-[#0D2557] text-white rounded-lg p-5 border border-white text-center">
+                    <h3 class="text-xl font-bold text-white">Propriedades Físicas</h3>
+                    <ul class="list-disc list-inside mt-2 text-base text-gray-200 text-left mx-auto w-fit">
+                        <li>Estado: Gás (temperatura ambiente)</li>
+                        <li>Ponto de Fusão: -80,8 °C</li>
+                        <li>Ponto de Ebulição: -84 °C</li>
+                        <li>Densidade: 1.11 g/L</li>
+                    </ul>
+                </div>
+                
+                <!-- Card de Aplicações -->
+                <div class="bg-[#0D2557] text-white rounded-lg p-5 border border-white text-center">
+                    <h3 class="text-xl font-bold text-white">Aplicações</h3>
+                    <p class="mt-2 text-base text-gray-200">O etino é usado principalmente na indústria de soldagem e corte de metais (solda oxicombustível), na produção de plásticos e na síntese de outras substâncias orgânicas.</p>
+                </div>
+            </div>
+            
+            <!-- Card de Geometria Molecular (Agora em uma div separada para largura total) -->
+            <div class="bg-[#0D2557] text-white rounded-lg p-5 border border-white mt-6 w-full text-center">
+                <h3 class="text-xl font-bold text-white">Geometria Molecular</h3>
+                <div id="molecule-3d-container" class="mt-4 rounded-lg"></div>
+                <p class="text-base text-gray-200 mt-4">Arraste para interagir com o modelo 3D da molécula de etino. A geometria é linear.</p>
+            </div>
+        </section>
+
+        <!-- Questionário Interativo -->
+        <section class="bg-[#93A8C9] rounded-xl p-6 sm:p-8 container-shadow">
+            <h2 class="text-2xl sm:text-3xl font-semibold text-center text-[#0D2557] mb-6">Teste seu Conhecimento!</h2>
+            <div id="quiz-container" class="space-y-6">
+                
+                <!-- A área do questionário será preenchida por JavaScript -->
+                <p id="question-text" class="text-xl font-medium text-center"></p>
+                <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+                
+                <!-- Área de resultado e informações adicionais -->
+                <div id="info-container" class="hidden bg-[#0D2557] text-white rounded-lg p-4 transition-all duration-300 border border-white">
+                    <h3 id="info-title" class="text-lg font-bold text-white hidden"></h3>
+                    <p id="info-text" class="mt-2 text-gray-200 hidden"></p>
+                    <img id="info-image" src="" alt="Imagem relacionada à pergunta" class="mt-4 rounded-lg hidden w-full">
+                </div>
+                
+                <p id="result-message" class="text-center font-bold"></p>
+                
+                <div class="flex justify-center mt-6">
+                    <button id="next-button" class="hidden bg-[#0D2557] hover:bg-[#93A8C9] text-white font-bold py-3 px-6 rounded-full transition-colors duration-200">
+                        Próxima Pergunta
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-[#0D2557] text-white py-6 px-4 sm:px-6 lg:px-8 mt-12">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 Trabalho de Química. Todos os direitos reservados.</p>
+            <p class="mt-1 text-sm text-gray-200">Desenvolvido por Andrew.</p>
+        </div>
+    </footer>
+
+    <!-- Inclui o JavaScript personalizado -->
+    <script src="script.js"></script>
+</body>
+</html>

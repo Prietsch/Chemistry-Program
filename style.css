@@ -1,0 +1,28 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #E8F0FF;
+}
+.container-shadow {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+#molecule-3d-container {
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+    height: 300px;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background-color: #0D2557;
+}
+.text-sub {
+    vertical-align: sub;
+    font-size: 0.8em;
+}
+.max-width-80 {
+    max-width: 80%;
+    margin: 0 auto;
+}
+.section-container {
+    max-width: 80%;
+    margin: 0 auto;
+}
